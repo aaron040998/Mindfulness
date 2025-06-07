@@ -1,3 +1,6 @@
+// Implements a guided activity session with timing and logging
+// Handles user prompts, simple animations, and record-keeping
+
 using System.IO;
 
 public class Activity
@@ -17,20 +20,19 @@ public class Activity
         Console.Clear();
         Console.WriteLine($"Welcome to the {_name} Activity");
         Console.WriteLine($"\n{_description}");
-        
-        // Validación robusta de duración
+
+        // ask user for session length
         while (true)
         {
             Console.Write("\nHow long (in seconds) would you like your session? ");
             string? input = Console.ReadLine();
-            
+
             if (input == null)
             {
-                Console.WriteLine("Input canceled. Using default duration: 30 seconds");
-                _duration = 30;
+                _duration = 30; // default when canceled
                 break;
             }
-            
+
             if (int.TryParse(input, out int duration) && duration > 0)
             {
                 _duration = duration;
@@ -38,32 +40,32 @@ public class Activity
             }
             Console.WriteLine("Invalid input. Please enter a positive number.");
         }
-        
+
         Console.WriteLine("\nGet ready...");
         ShowSpinner(3);
     }
 
     public void DisplayEndingMessage()
     {
-        Console.WriteLine("\nWell done!!");
+        Console.WriteLine("\nWell done!");
         ShowSpinner(2);
-        Console.WriteLine($"\nYou've completed {_duration} seconds of the {_name} Activity");
+        Console.WriteLine($"\nYou've completed {_duration} seconds of {_name}.");
         ShowSpinner(3);
-        
-        // Guardar en log
+
+        // record session
         SaveToLog();
     }
 
     protected void SaveToLog()
     {
-        string logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {_name} Activity ({_duration} seconds)";
+        var entry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {_name} ({_duration}s)";
         try
         {
-            File.AppendAllText("mindfulness_log.txt", logEntry + Environment.NewLine);
+            File.AppendAllText("mindfulness_log.txt", entry + Environment.NewLine);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error saving to log: {ex.Message}");
+            Console.WriteLine($"Log error: {ex.Message}");
         }
     }
 

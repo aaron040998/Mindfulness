@@ -1,3 +1,4 @@
+// Guides user through reflective prompts with timed questions
 public class ReflectingActivity : Activity
 {
     private List<string> _prompts = new()
@@ -30,29 +31,29 @@ public class ReflectingActivity : Activity
         "What made this different from other experiences?"
     };
 
-    public ReflectingActivity() : base("Reflecting", 
+    public ReflectingActivity() : base("Reflecting",
         "This activity will help you reflect on meaningful life experiences.")
     {
     }
 
     public void Run()
     {
-        DisplayStartingMessage();
+        DisplayStartingMessage();   // prompt and set duration
         
         Console.WriteLine("\nConsider the following prompt:");
-        Console.WriteLine($"\n--- {GetRandomPrompt()} ---");
+        Console.WriteLine($"\n--- {GetRandomPrompt()} ---"); // show topic
         Console.WriteLine("\nPress enter when ready...");
-        Console.ReadLine();
+        Console.ReadLine();         // wait for user
         
         Console.WriteLine("\nReflect on these questions:");
         DateTime endTime = DateTime.Now.AddSeconds(_duration);
         while (DateTime.Now < endTime)
         {
             Console.Write($"\n> {GetRandomQuestion()} ");
-            ShowSpinner(5);
+            ShowSpinner(5);          // pause between questions
         }
         
-        DisplayEndingMessage();
+        DisplayEndingMessage();     // conclude and log
     }
 
     private string GetRandomPrompt() => _prompts[new Random().Next(_prompts.Count)];

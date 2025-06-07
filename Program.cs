@@ -1,4 +1,15 @@
-﻿using System.IO;
+﻿// Entry point for mindfulness session manager with activity selection and logging
+// Tracks counts and saves session history in a log file
+
+        /*
+         * EXCEEDING REQUIREMENTS:
+         * Implemented session logging system that:
+         * - Records each activity with timestamp and duration
+         * - Saves data to mindfulness_log.txt
+         * - Shows session summary upon exit
+         * - Maintains full history between program executions
+         */
+using System.IO;
 
 class Program
 {
@@ -8,15 +19,8 @@ class Program
 
     static void Main()
     {
-        /*
-         * EXCEEDING REQUIREMENTS:
-         * Implemented session logging system that:
-         * - Records each activity with timestamp and duration
-         * - Saves data to mindfulness_log.txt
-         * - Shows session summary upon exit
-         * - Maintains full history between program executions
-         */
-
+        
+        /* Session menu loop */
         while (true)
         {
             Console.Clear();
@@ -31,15 +35,15 @@ class Program
             {
                 case "1":
                     new BreathingActivity().Run();
-                    breathingCount++;
+                    breathingCount++;  // increment breathing count
                     break;
                 case "2":
                     new ReflectingActivity().Run();
-                    reflectingCount++;
+                    reflectingCount++; // increment reflecting count
                     break;
                 case "3":
                     new ListingActivity().Run();
-                    listingCount++;
+                    listingCount++;    // increment listing count
                     break;
                 case "4":
                     Console.WriteLine("\nSession Summary:");
@@ -48,14 +52,14 @@ class Program
                     Console.WriteLine($"- Listing Activities: {listingCount}");
 
                     Console.WriteLine("\nThank you for practicing mindfulness!");
-                    
-                    // Mostrar ubicación del log
+
+                    // show log file location
                     string logPath = Path.GetFullPath("mindfulness_log.txt");
                     Console.WriteLine($"\nSession saved to: {logPath}");
                     return;
                 default:
                     Console.WriteLine("Invalid option. Try again.");
-                    Thread.Sleep(1500);
+                    Thread.Sleep(1500);  // brief pause before retry
                     break;
             }
         }
