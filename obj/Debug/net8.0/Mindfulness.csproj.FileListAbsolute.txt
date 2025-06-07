@@ -12,3 +12,4 @@ F:\BYU\term3\program-class\week5\Mindfulness\obj\Debug\net8.0\refint\Mindfulness
 F:\BYU\term3\program-class\week5\Mindfulness\obj\Debug\net8.0\Mindfulness.pdb
 F:\BYU\term3\program-class\week5\Mindfulness\obj\Debug\net8.0\Mindfulness.genruntimeconfig.cache
 F:\BYU\term3\program-class\week5\Mindfulness\obj\Debug\net8.0\ref\Mindfulness.dll
+F:\BYU\term3\program-class\week5\Mindfulness\obj\Debug\net8.0\Mindfulness.sourcelink.json

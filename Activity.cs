@@ -1,3 +1,5 @@
+using System.IO;
+
 public class Activity
 {
     protected string _name;
@@ -20,9 +22,8 @@ public class Activity
         while (true)
         {
             Console.Write("\nHow long (in seconds) would you like your session? ");
-            string? input = Console.ReadLine();  // Usa tipo nullable
+            string? input = Console.ReadLine();
             
-            // Manejo explícito de posible valor nulo
             if (input == null)
             {
                 Console.WriteLine("Input canceled. Using default duration: 30 seconds");
@@ -35,7 +36,6 @@ public class Activity
                 _duration = duration;
                 break;
             }
-            // Mensaje de error para entrada inválida
             Console.WriteLine("Invalid input. Please enter a positive number.");
         }
         
@@ -49,6 +49,22 @@ public class Activity
         ShowSpinner(2);
         Console.WriteLine($"\nYou've completed {_duration} seconds of the {_name} Activity");
         ShowSpinner(3);
+        
+        // Guardar en log
+        SaveToLog();
+    }
+
+    protected void SaveToLog()
+    {
+        string logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {_name} Activity ({_duration} seconds)";
+        try
+        {
+            File.AppendAllText("mindfulness_log.txt", logEntry + Environment.NewLine);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving to log: {ex.Message}");
+        }
     }
 
     public void ShowSpinner(int seconds)
@@ -56,7 +72,7 @@ public class Activity
         char[] spinner = { '|', '/', '-', '\\' };
         for (int i = 0; i < seconds * 2; i++)
         {
-            Console.Write(spinner[i % 4]);  // Corrección aquí
+            Console.Write(spinner[i % 4]);
             Thread.Sleep(500);
             Console.Write("\b \b");
         }

@@ -12,11 +12,22 @@ public class BreathingActivity : Activity
         DateTime endTime = DateTime.Now.AddSeconds(_duration);
         while (DateTime.Now < endTime)
         {
-            Console.Write("\nBreathe in... ");
-            ShowCountDown(4);
+            int remainingSeconds = (int)(endTime - DateTime.Now).TotalSeconds;
+            int breathIn = Math.Min(4, remainingSeconds);
             
-            Console.Write("\nBreathe out... ");
-            ShowCountDown(6);
+            if (breathIn > 0)
+            {
+                Console.Write("\nBreathe in... ");
+                ShowCountDown(breathIn);
+            }
+            
+            remainingSeconds = (int)(endTime - DateTime.Now).TotalSeconds;
+            int breathOut = Math.Min(6, remainingSeconds);
+            
+            if(breathOut > 0) {
+                Console.Write("\nBreathe out... ");
+                ShowCountDown(breathOut);
+            }
         }
         
         DisplayEndingMessage();
